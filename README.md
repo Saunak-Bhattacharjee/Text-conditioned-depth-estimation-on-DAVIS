@@ -150,12 +150,10 @@ Both captioned configurations improve over the vision-only baseline. LLaVA struc
 The key experiment of this study. For each Stage 2 model, we re-evaluate on validation with three caption-feeding regimes:
 
 - **real:** the dataset's own captions (BLIP for 2A, LLaVA for 2B).
-- **shuffled:** captions randomly permuted across the validation set, so each image gets a caption from a different image. Semantic content is preserved at the population level but unrelated to any specific image.
+- **shuffled:** captions randomly permuted across the validation set, so each image gets a caption from a different image. Semantic content is preserved at the population level but is unrelated to any specific image.
 - **empty:** all captions replaced with empty strings.
 
 If a model is genuinely using caption content, performance should drop under shuffling and drop further under emptiness. If a model is treating the caption as a constant or noise input, all three should be similar.
-
-![Caption content ablation](Figures/ablation_caption_content.png)
 
 | Variant | δ1 ↑ | Drop vs real |
 |---|---|---|
@@ -198,7 +196,7 @@ Visual comparison on five representative DAVIS validation frames. Columns left t
 A held-out validation frame (three people in a vehicle on a street) with both captions side-by-side:
 
 - **BLIP**: *three people sitting in a car on the street*
-- **LLaVA**: *In the foreground: 3 people in a vehicle, 2 girls and 1 boy. in the middle: 2 cars on the road, 1 red traffic light. in the background: Trees and buildings along the road. Perspective, size, and occlusion of objects*
+- **LLaVA**: *In the foreground: 3 people in a vehicle, 2 girls and 1 boy. In the middle: 2 cars on the road, 1 red traffic light. in the background: Trees and buildings along the road. Perspective, size, and occlusion of objects*
 
 Both produce plausible depth maps. The LLaVA output shows slightly tighter separation between the foreground figures and the receding street, but the difference is at the threshold of what's visually detectable.
 
@@ -240,11 +238,11 @@ The 1.27 pp drop when LLaVA captions are removed is direct evidence that all thr
 - **Single dataset.** DAVIS is small (~2,200 training images) compared to standard depth benchmarks. Generalization to other domains (indoor, autonomous driving) is untested.
 - **Frozen backbones.** Both CLIP encoders are frozen. Joint fine-tuning could change the result but would require substantially more compute than a single L4 GPU provides.
 - **Single VLM.** We use only LLaVA-1.6-7B. Different VLMs (Qwen-VL, InternVL, MoonDream) might produce structurally different captions and shift the gap. The experiment as designed isolates the *type* of caption, not the *specific VLM*.
-- **Single captioning prompt.** We use one structured prompt. Variations (e.g., requesting absolute depth estimates, requesting bounding boxes) could produce stronger or weaker signal.
+- **Single captioning prompt.** We use one structured prompt. Variations (e.g., requesting absolute depth estimates, requesting bounding boxes) could produce a stronger or weaker signal.
 
 ### Future Work
 
-The most natural next experiment is to evaluate on a standard depth benchmark such as **NYU-v2** zero-shot, allowing direct comparison to published language-conditioned depth methods. A second priority is to test whether the LLaVA gains transfer when the underlying vision backbone is replaced with something stronger (e.g., DINOv2 features or a Depth Anything V2 backbone with a small LoRA). A third priority is to investigate whether prompting LLaVA for explicit *quantitative* depth estimates (e.g., "give relative distances in arbitrary units") yields stronger signal than the qualitative ordinal layering used here.
+The most natural next experiment is to evaluate on a standard depth benchmark such as **NYU-v2** zero-shot, allowing direct comparison to published language-conditioned depth methods. A second priority is to test whether the LLaVA gains transfer when the underlying vision backbone is replaced with something stronger (e.g., DINOv2 features or a Depth Anything V2 backbone with a small LoRA). A third priority is to investigate whether prompting LLaVA for explicit *quantitative* depth estimates (e.g., "give relative distances in arbitrary units") yields a stronger signal than the qualitative ordinal layering used here.
 
 ---
 

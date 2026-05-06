@@ -175,7 +175,7 @@ This is the most informative finding of the project. **Stage 2B drops 4.4× more
 
 To further investigate where each model attends, we extract the cross-attention weights from the trained Stage 2A and Stage 2B models, sum across heads and over text tokens, and reshape the result into a 16×16 patch grid.
 
-![Cross attention maps](Figures/cross_attention_maps.png)
+![Cross attention maps](Figures/Cross Attention Maps.png)
 
 Three observations from the attention maps:
 
@@ -185,13 +185,13 @@ Three observations from the attention maps:
 
 ### Qualitative Comparison
 
-![Qualitative comparison across stages](Figures/qualitative_comparison.png)
+![Qualitative comparison across stages](Figures/Qualitative Comparison.png)
 
 Visual comparison on five representative DAVIS validation frames. Columns left to right: input, pseudo-depth ground truth, Stage 1 prediction, Stage 2A (BLIP) prediction, Stage 2B (LLaVA) prediction. Differences between Stage 2A and 2B are visually subtle, consistent with the small δ1 gap at convergence. The gap between Stage 1 and the captioned stages is more visible — particularly on the hiker (row 1) and the car (row 2), where the captioned models produce sharper foreground/background separation.
 
 ### Single-Image Inference Example
 
-![Inference example](Figures/example_comparison.png)
+![Inference example](Figures/Example comparison.png)
 
 A held-out validation frame (three people in a vehicle on a street) with both captions side-by-side:
 

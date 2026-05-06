@@ -94,7 +94,7 @@ These ordinal pairs serve as supervision for an auxiliary ordinal ranking loss i
 
 ### Architecture Overview
 
-![Architecture pipeline](figures/architecture.svg)
+![Architecture pipeline](Figures/Architecture.png)
 
 All three stages share the same frozen CLIP ViT-L/14 vision encoder (1024-d patch features, 16×16 patch grid at 224px input) and the same trainable DPT decoder that upsamples patch features to a full-resolution depth map. The stages differ in how (and whether) language is injected between these two components.
 
@@ -155,7 +155,7 @@ The key experiment of this study. For each Stage 2 model, we re-evaluate on vali
 
 If a model is genuinely using caption content, performance should drop under shuffling and drop further under emptiness. If a model is treating the caption as a constant or noise input, all three should be similar.
 
-![Caption content ablation](figures/ablation_caption_content.png)
+![Caption content ablation](Figures/ablation_caption_content.png)
 
 | Variant | δ1 ↑ | Drop vs real |
 |---|---|---|
@@ -177,7 +177,7 @@ This is the most informative finding of the project. **Stage 2B drops 4.4× more
 
 To further investigate where each model attends, we extract the cross-attention weights from the trained Stage 2A and Stage 2B models, sum across heads and over text tokens, and reshape the result into a 16×16 patch grid.
 
-![Cross attention maps](figures/cross_attention_maps.png)
+![Cross attention maps](Figures/cross_attention_maps.png)
 
 Three observations from the attention maps:
 
@@ -187,13 +187,13 @@ Three observations from the attention maps:
 
 ### Qualitative Comparison
 
-![Qualitative comparison across stages](figures/qualitative_comparison.png)
+![Qualitative comparison across stages](Figures/qualitative_comparison.png)
 
 Visual comparison on five representative DAVIS validation frames. Columns left to right: input, pseudo-depth ground truth, Stage 1 prediction, Stage 2A (BLIP) prediction, Stage 2B (LLaVA) prediction. Differences between Stage 2A and 2B are visually subtle, consistent with the small δ1 gap at convergence. The gap between Stage 1 and the captioned stages is more visible — particularly on the hiker (row 1) and the car (row 2), where the captioned models produce sharper foreground/background separation.
 
 ### Single-Image Inference Example
 
-![Inference example](figures/example_comparison.png)
+![Inference example](Figures/example_comparison.png)
 
 A held-out validation frame (three people in a vehicle on a street) with both captions side-by-side:
 
